@@ -4,7 +4,7 @@
 #
 Name     : rubygem-coderay
 Version  : 1.1.1
-Release  : 10
+Release  : 11
 URL      : https://rubygems.org/downloads/coderay-1.1.1.gem
 Source0  : https://rubygems.org/downloads/coderay-1.1.1.gem
 Summary  : No detailed summary available
@@ -14,6 +14,7 @@ Requires: rubygem-coderay-bin
 BuildRequires : ruby
 BuildRequires : rubygem-rdoc
 BuildRequires : rubygem-rubygems-tasks
+BuildRequires : rubygem-test-unit
 
 %description
 = CodeRay
@@ -34,6 +35,7 @@ gem unpack %{SOURCE0}
 gem spec %{SOURCE0} -l --ruby > rubygem-coderay.gemspec
 
 %build
+export LANG=C
 gem build rubygem-coderay.gemspec
 
 %install
@@ -60,7 +62,7 @@ export LANG=C
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost
-pushd %{buildroot}%{gem_dir}/gems/coderay-1.1.0 && ruby -I.:lib:test test/functional/examples.rb && popd
+pushd %{buildroot}%{gem_dir}/gems/coderay-* && ruby -I.:lib:test test/functional/examples.rb && popd
 
 
 %files
